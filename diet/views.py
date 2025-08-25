@@ -33,6 +33,9 @@ def settings(request):
     if request.user.is_authenticated:
         user_diet_info = request.user.dietInfo
         user_api_key = request.user.apiKey
+    else:
+        user_diet_info = ""
+        user_api_key = ""
     return render(request, 'diet/settings.html', {
         "user_diet_info": user_diet_info,
         "user_api_key": user_api_key
