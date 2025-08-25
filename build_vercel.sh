@@ -1,13 +1,11 @@
 #!/bin/bash
 
-# Устанавливаем Python 3.9 (это решит проблему "command not found")
-yum install -y python39 python39-pip
+set -e
 
-# Устанавливаем зависимости, используя конкретную версию pip
-python3.9 -m pip install -r requirements.txt
+# Устанавливаем ТОЛЬКО Pip для системного Python3
+yum install -y python3-pip
 
-# Применяем миграции
-python3.9 manage.py migrate
-
-# Собираем статику
-python3.9 manage.py collectstatic --noinput --clear
+# Теперь все команды будут работать
+python3 -m pip install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py collectstatic --noinput --clear
