@@ -1,6 +1,6 @@
 django
 google-genai
 python-dotenv
-pydanti
+pydantic
 dj-database-url
 psycopg2-binary
