@@ -1,0 +1,21 @@
+{% extends "diet/layout.html" %}
+
+{% block body %}
+    <h1>Welcome to Diet Helper</h1>
+    {% if user.is_authenticated %}
+        {% if verdict and explanation %}
+            <div class="result-card {% if verdict == 'Да' %}success{% elif verdict == 'С осторожностью' %}warning{% else %}danger{% endif %}">
+                <h2>{{ verdict }}</h2>
+                <p>{{ explanation }}</p>
+            </div>
+        {% endif %}
+        <form action="{% url 'check' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="product" placeholder="Введите продукт" required>
+            <button class="btn btn-primary" type="submit">Проверить</button>
+        </form>
+    {% else %}
+        <p>Пожалуйста, войдите в аккунт, чтобы продолжить.</p>
+    {% endif %}
+    <a href="{% url 'settings' %}">Настройки</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+:root{
+    --tg-secondary-bg: #f8f9fa;
+    --tg-hint: #6c757d;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+}
+
+.result-card {
+    background-color: var(--tg-secondary-bg);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    border-left: 5px solid var(--tg-hint);
+}
+
+.result-card.success { border-color: var(--success-color); }
+.result-card.warning { border-color: var(--warning-color); }
+.result-card.danger { border-color: var(--danger-color); }

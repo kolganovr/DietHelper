@@ -1,0 +1,4 @@
+django
+google-generativeai
+pydanticz
+python-dotenv

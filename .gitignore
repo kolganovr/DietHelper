@@ -1,0 +1,50 @@
+# Файлы кэша Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Папки виртуального окружения
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# База данных
+*.sqlite3
+db.sqlite3
+
+# Файлы, содержащие секретные данные (API ключи, пароли)
+.env
+*.env
+
+# Статические файлы, собранные командой collectstatic
+# Исходные статические файлы в приложениях (static/) должны быть в репозитории
+staticfiles/
+static_root/
+
+# Медиа файлы, загруженные пользователями
+media/
+
+# Логи
+*.log
+logs/
+
+# Файлы конфигурации IDE и редакторов
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vercel
+.vercel/
+
+# Отчёты о покрытии кода тестами
+.coverage
+.coverage.*
+htmlcov/
