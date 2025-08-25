@@ -7,6 +7,8 @@ from django.urls import reverse
 
 from .gemini import get_verdict
 
+from .models import User
+
 def home(request):
     verdict = request.session.pop('verdict', None)
     explanation = request.session.pop('explanation', None)
@@ -61,6 +63,17 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("home"))
+
+def register(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = User.objects.create_user(username=username, password=password)
+        user.save()
+        login(request, user)
+        return HttpResponseRedirect(reverse("home"))
+    else:
+        return render(request, "diet/register.html")
 
 def check(request):
     if request.method == 'POST':
