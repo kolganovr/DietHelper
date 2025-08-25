@@ -1,11 +1,17 @@
 #!/bin/bash
-
 set -e
 
-# Устанавливаем ТОЛЬКО Pip для системного Python3
+# Устанавливаем Pip
 yum install -y python3-pip
 
-# Теперь все команды будут работать
+# Устанавливаем зависимости
 python3 -m pip install -r requirements.txt
+
+# Применяем миграции
 python3 manage.py migrate
+
+# Создаем суперпользователя (новая команда!)
+python3 manage.py createsuperuser --noinput || true
+
+# Собираем статику
 python3 manage.py collectstatic --noinput --clear
