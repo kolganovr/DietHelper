@@ -1,4 +1,10 @@
 {
+  "builds": [
+    {
+      "src": "DietHelper/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
   "routes": [
     {
       "src": "/static/(.*)",
