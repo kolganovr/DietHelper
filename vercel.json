@@ -6,8 +6,7 @@
       "config": {
         "maxLambdaSize": "15mb",
         "runtime": "python3.9",
-        "pip": "pip install -r requirements.txt",
-        "build": "bash build.sh" 
+        "build": "bash build.sh"
       }
     }
   ],
