@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 
 from .gemini import get_verdict
@@ -46,8 +46,8 @@ def settings(request):
 def login_view(request):
     if request.method == "POST":
 
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST["username"].lower().strip()
+        password = request.POST["password"].lower().strip()
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
@@ -88,6 +88,7 @@ def check(request):
             request.session['verdict'] = verdict
             request.session['explanation'] = explanation
         else:
-            print('User is not authenticated.')
+            request.session['verdict'] = "User is not authenticated."
+            request.session['explanation'] = "Please log in to access this feature."
 
     return HttpResponseRedirect(reverse("home"))
