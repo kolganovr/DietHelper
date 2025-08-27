@@ -1,21 +1,30 @@
 {% extends "diet/layout.html" %}
 
+{% block appbar-left-icon %}
+    <md-icon-button href="{% url 'settings' %}">
+        <md-icon>settings</md-icon>
+    </md-icon-button>
+{% endblock %}
+
+{% block title %}<h1>Главная</h1>{% endblock %}
+
 {% block body %}
-    <h1>Главная страница</h1>
-    {% if user.is_authenticated %}
-        {% if verdict and explanation %}
-            <div class="result-card {% if verdict == 'Да' %}success{% elif verdict == 'С осторожностью' %}warning{% else %}danger{% endif %}">
+    {% if verdict and explanation %}
+        <div class="result-card {% if verdict == 'Можно' %}success{% elif verdict == 'С осторожностью' %}warning{% else %}danger{% endif %}">
+            <div class="header-subheader">
                 <h2>{{ verdict }}</h2>
-                <p>{{ explanation }}</p>
+                <p>{{ product }}</p> 
             </div>
-        {% endif %}
-        <form action="{% url 'check' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name="product" placeholder="Введите продукт" required>
-            <button class="btn btn-primary" type="submit">Проверить</button>
-        </form>
-    {% else %}
-        <p>Пожалуйста, войдите в аккунт, чтобы продолжить.</p>
+            <p>{{ explanation }}</p>
+        </div>
     {% endif %}
-    <a href="{% url 'settings' %}">Настройки</a>
+
+    <div id="product-check">
+        <form action="{% url 'check' %}" method="post" id="product-form">
+            {% csrf_token %}
+            <!-- TODO: Добавить возможность добавить фото -->
+            <input type="text" name="product" placeholder="Введите название продукта" required id="product-input">
+            <md-filled-button type="submit" class="main-button">Проверить</md-filled-button>
+        </form>
+    </div>
 {% endblock %}

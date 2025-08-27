@@ -1,5 +1,13 @@
 {% extends "diet/layout.html" %}
 
+{% block appbar-left-icon %}
+    <md-icon-button href="{% url 'home' %}">
+        <md-icon>arrow_back</md-icon>
+    </md-icon-button>
+{% endblock %}
+
+{% block title %}Настройки{% endblock %}
+
 {% block body %}
     <h1>Настройки</h1>
     <a href="{% url 'home' %}">Главная</a>

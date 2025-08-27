@@ -12,9 +12,12 @@ from .models import User
 def home(request):
     verdict = request.session.pop('verdict', None)
     explanation = request.session.pop('explanation', None)
+    product = request.session.pop('product', None)
+
     return render(request, 'diet/home.html', {
         "verdict": verdict,
-        "explanation": explanation
+        "explanation": explanation,
+        "product": product
     })
 
 def settings(request):
@@ -87,8 +90,10 @@ def check(request):
             verdict, explanation = get_verdict(product, diet_description, api_key)
             request.session['verdict'] = verdict
             request.session['explanation'] = explanation
+            request.session['product'] = product
         else:
             request.session['verdict'] = "User is not authenticated."
             request.session['explanation'] = "Please log in to access this feature."
+            request.session['product'] = ""
 
     return HttpResponseRedirect(reverse("home"))
