@@ -12,15 +12,18 @@ from .models import User
 def home(request):
     verdict = request.session.pop('verdict', None)
     explanation = request.session.pop('explanation', None)
+    product = request.session.pop('product', None)
+
     return render(request, 'diet/home.html', {
         "verdict": verdict,
-        "explanation": explanation
+        "explanation": explanation,
+        "product": product
     })
 
 def settings(request):
     if request.method == "POST":
-        diet_description = request.POST.get("diet_description", "")
-        user_api_key = request.POST.get("api_key", "")
+        diet_description = request.POST.get('diet_description', '')
+        user_api_key = request.POST.get('diet_api_key', '')
         print(f'Diet description updated: {diet_description}')
         print(f'User API key updated: {user_api_key}')
 
@@ -54,11 +57,11 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("home"))
         else:
-            return render(request, "diet/login.html", {
-                "message": "Invalid username and/or password."
+            return render(request, "diet/profile.html", {
+                "message": "Неправильное имя пользователя или пароль"
             })
     else:
-        return render(request, "diet/login.html")
+        return render(request, "diet/profile.html")
 
 def logout_view(request):
     logout(request)
@@ -73,22 +76,42 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect(reverse("home"))
     else:
-        return render(request, "diet/register.html")
+        return render(request, "diet/profile.html")
 
 def check(request):
     if request.method == 'POST':
         product = request.POST.get('product')
-        if request.user.is_authenticated:
-            diet_description = request.user.dietInfo
-            api_key = request.user.apiKey
-
-            print(f'Product: {product}, Diet Description: {diet_description}, API Key: {api_key}')
-
+        if not request.user.is_authenticated:
+            request.session['verdict'] = "Вы не зашли в аккаунт"
+            request.session['explanation'] = "Пожалуйста, войдите или зарегестируйтесь"
+            request.session['product'] = ""
+            return HttpResponseRedirect(reverse("home"))
+       
+        diet_description = request.user.dietInfo
+        api_key = request.user.apiKey
+        
+        if not api_key:
+            request.session['verdict'] = "Не указан API ключ"
+            request.session['explanation'] = "Пожалуйста, укажите ваш API ключ в настройках"
+            request.session['product'] = ""
+            return HttpResponseRedirect(reverse("home"))
+        if not diet_description:
+            request.session['verdict'] = "Не указаны параметры диеты"
+            request.session['explanation'] = "Пожалуйста, укажите параметры вашей диеты в настройках"
+            request.session['product'] = ""
+            return HttpResponseRedirect(reverse("home"))
+        
+        try:
             verdict, explanation = get_verdict(product, diet_description, api_key)
             request.session['verdict'] = verdict
             request.session['explanation'] = explanation
-        else:
-            request.session['verdict'] = "User is not authenticated."
-            request.session['explanation'] = "Please log in to access this feature."
+            request.session['product'] = product
+        except Exception as e:
+            request.session['verdict'] = "Ошибка при получении данных"
+            request.session['explanation'] = str(e)
+            request.session['product'] = ""
 
     return HttpResponseRedirect(reverse("home"))
+
+def profile(request):
+    return render(request, 'diet/profile.html')

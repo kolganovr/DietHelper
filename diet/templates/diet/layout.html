@@ -2,35 +2,47 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>{% block title %}Diet Helper{% endblock %}</title>
-        <link href="{% static 'diet/styles.css' %}" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Diet Helper</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
+        <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <script type="importmap">
+            {
+            "imports": {
+                "@material/web/": "https://esm.run/@material/web/"
+            }
+            }
+        </script>
+        <script type="module">
+            import '@material/web/all.js';
+            import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+
+            document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+        </script>
+
+
+        <link href="{% static 'diet/styles.css' %}" rel="stylesheet"> 
     </head>
     <body>
-        <h1>Diet Helper</h1>
-        <div>
+        <div class="app-bar">
+            {% block appbar-left-icon %}
+            
+            {% endblock %}
+
+            {% block title %}{% endblock %}
+
             {% if user.is_authenticated %}
-                В аккаунте <strong>{{ user.username }}</strong>
+                <md-icon-button href="{% url 'profile' %}">
+                    <span class="user-initial">{{ user.username|slice:":1" }}</span>
+                </md-icon-button>
             {% else %}
-                Не в аккаунте
+                <md-icon-button href="{% url 'profile' %}">
+                    <md-icon>account_circle</md-icon>
+                </md-icon-button>
             {% endif %}
         </div>
-        <ul class="nav">
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Зарегистрироваться</a>
-                </li>
-            {% endif %}
-        </ul>
-        <hr>
         {% block body %}
         {% endblock %}
     </body>
