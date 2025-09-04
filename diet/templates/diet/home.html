@@ -20,7 +20,7 @@
     {% endif %}
 
     <div id="product-check">
-        <form action="{% url 'check' %}" method="post" id="product-form">
+        <form action="{% url 'check' %}" method="post" class="form-group">
             {% csrf_token %}
             <!-- TODO: Добавить возможность добавить фото -->
             <input type="text" name="product" placeholder="Введите название продукта" required id="product-input">
