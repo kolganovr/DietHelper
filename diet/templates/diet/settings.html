@@ -9,26 +9,12 @@
 {% block title %}<h1>Настройки</h1>{% endblock %}
 
 {% block body %}
-    <!-- {% if user.is_authenticated %}
-        <form action="{% url 'settings' %}" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="diet_description">Описание диеты</label>
-                <textarea class="form-control" id="diet_description" name="diet_description" rows="3" placeholder="Введите описание диеты">{{ user_diet_info }}</textarea>
-                <label for="api_key">API ключ</label>
-                <input type="text" class="form-control" id="api_key" name="api_key" placeholder="Введите ваш API ключ" value="{{ user.apiKey }}">
-            </div>
-            <button class="btn btn-primary" type="submit">Сохранить изменения</button>
-        </form>
-    {% else %}
-        <p>Вам нужно войти в систему, чтобы редактировать настройки</p>
-    {% endif %} -->
     <form action="{% url 'settings' %}" method="post" class="form-group">
         {% csrf_token %}
-        <md-outlined-text-field type="textarea" id='diet_description' label="Описание диеты" value="{{ user_diet_info }}" placeholder="Введите описание диеты">
+        <md-outlined-text-field type="textarea" id='diet_description' label="Описание диеты" value="{{ user_diet_info }}" placeholder="Введите описание диеты" name="diet_description">
         </md-outlined-text-field>
 
-        <md-outlined-text-field label="API-ключ Gemini" value="{{ user.apiKey }}" type="password" placeholder="Введите API-ключ Gemini">
+        <md-outlined-text-field label="API-ключ Gemini" value="{{ user.apiKey }}" type="password" placeholder="Введите API-ключ Gemini" name="diet_api_key">
         </md-outlined-text-field>
 
         <md-filled-button type="submit" class="main-button">Сохранить изменения</md-filled-button>

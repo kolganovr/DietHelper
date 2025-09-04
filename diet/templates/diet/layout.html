@@ -34,10 +34,11 @@
             {% block title %}{% endblock %}
 
             {% if user.is_authenticated %}
-            <!-- TODO: Переход на страницу логина логаут регистрация -->
-                <span class="user-initial">{{ user.username|slice:":1" }}</span>
+                <md-icon-button href="{% url 'profile' %}">
+                    <span class="user-initial">{{ user.username|slice:":1" }}</span>
+                </md-icon-button>
             {% else %}
-                <md-icon-button>
+                <md-icon-button href="{% url 'profile' %}">
                     <md-icon>account_circle</md-icon>
                 </md-icon-button>
             {% endif %}

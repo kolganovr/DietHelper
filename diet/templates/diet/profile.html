@@ -1,0 +1,96 @@
+{% extends "diet/layout.html" %}
+
+{% block appbar-left-icon %}
+    <md-icon-button href="{% url 'home' %}">
+        <md-icon>arrow_back</md-icon>
+    </md-icon-button>
+{% endblock %}
+
+{% block title %}<h1>Профиль</h1>{% endblock %}
+
+{% block body %}
+
+    {% if message %}
+        <div class="result-card danger">{{ message }}</div>
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+        
+        {# Кастомный переключатель "Вход" / "Регистрация" #}
+        <div class="auth-switch">
+            <input type="radio" id="switch_login" name="auth_switch" value="login" checked>
+            <label for="switch_login">Вход</label>
+
+            <input type="radio" id="switch_register" name="auth_switch" value="register">
+            <label for="switch_register">Регистрация</label>
+        </div>
+
+        {# Панель с формой ВХОДА (показана по умолчанию) #}
+        <div id="login-panel">
+            <form action="{% url 'login' %}" method="post" class="form-group">
+                {% csrf_token %}
+                <md-outlined-text-field label="Логин" placeholder="Введите логин" required name="username">
+                </md-outlined-text-field>
+
+                <md-outlined-text-field label="Пароль" type="password" placeholder="Введите пароль" required name="password">
+                </md-outlined-text-field>
+
+                <md-filled-button type="submit" class="main-button">Войти</md-filled-button>
+            </form>
+        </div>
+
+        {# Панель с формой РЕГИСТРАЦИИ (скрыта по умолчанию) #}
+        <div id="register-panel" style="display: none;">
+            <form action="{% url 'register' %}" method="post" class="form-group">
+                {% csrf_token %}
+                <md-outlined-text-field label="Логин" placeholder="Придумайте логин" required name="username">
+                </md-outlined-text-field>
+                
+                <md-outlined-text-field label="Пароль" type="password" placeholder="Придумайте пароль" required name="password">
+                </md-outlined-text-field>
+                
+                <md-outlined-text-field label="Подтвердите пароль" type="password" placeholder="Повторите пароль" required name="confirmation">
+                </md-outlined-text-field>
+
+                <md-filled-button type="submit" class="main-button">Зарегистрироваться</md-filled-button>
+            </form>
+        </div>
+
+    {% else %}
+        {# Если пользователь уже вошел, показываем кнопку выхода #}
+        <div class="user-info">
+            <h2>Добро пожаловать, {{ user.username }}!</h2>
+        </div>
+        <form action="{% url 'logout' %}" method="post" class="form-group">
+            {% csrf_token %}
+            <md-filled-button type="submit" class="main-button">Выйти</md-filled-button>
+        </form>
+    {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginSwitch = document.getElementById('switch_login');
+            const registerSwitch = document.getElementById('switch_register');
+            const loginPanel = document.getElementById('login-panel');
+            const registerPanel = document.getElementById('register-panel');
+
+            // Проверяем, что все элементы существуют
+            if (loginSwitch && registerSwitch && loginPanel && registerPanel) {
+                loginSwitch.addEventListener('change', () => {
+                    if (loginSwitch.checked) {
+                        loginPanel.style.display = 'block';
+                        registerPanel.style.display = 'none';
+                    }
+                });
+
+                registerSwitch.addEventListener('change', () => {
+                    if (registerSwitch.checked) {
+                        loginPanel.style.display = 'none';
+                        registerPanel.style.display = 'block';
+                    }
+                });
+            }
+        });
+    </script>
+
+{% endblock %}
