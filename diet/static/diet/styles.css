@@ -74,15 +74,13 @@ h1 {
     margin-bottom: 20px;
 }
 
-@media (max-width: 425px) {
-    #product-check {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 16px;
-        background-color: var(--background-color);
-    }
+#product-check {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: var(--background-color);
 }
 
 .result-card {

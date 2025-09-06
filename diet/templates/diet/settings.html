@@ -15,6 +15,9 @@
         </md-outlined-text-field>
 
         <md-outlined-text-field label="API-ключ Gemini" value="{{ user.apiKey }}" type="password" placeholder="Введите API-ключ Gemini" name="diet_api_key">
+            <md-icon-button toggle slot="trailing-icon" href="https://aistudio.google.com/app/apikey" type="button" target="_blank">
+                <md-icon>help</md-icon>
+            </md-icon-button>
         </md-outlined-text-field>
 
         <md-filled-button type="submit" class="main-button">Сохранить изменения</md-filled-button>
