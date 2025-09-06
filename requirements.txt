@@ -4,3 +4,4 @@ python-dotenv
 pydantic
 dj-database-url
 psycopg2-binary
+whitenoise

@@ -1,17 +1,14 @@
 #!/bin/bash
 set -e
 
-# Устанавливаем Pip
-yum install -y python3-pip
+# Устанавливаем Python и активируем виртуальное окружение
+python3.9 -m venv .venv
+source .venv/bin/activate
 
 # Устанавливаем зависимости
-python3 -m pip install -r requirements.txt
+pip install -r requirements.txt
 
-# Применяем миграции
-python3 manage.py migrate
-
-# Создаем суперпользователя (новая команда!)
-python3 manage.py createsuperuser --noinput || true
-
-# Собираем статику
+# Собираем статику в папку 'staticfiles'
 python3 manage.py collectstatic --noinput --clear
+
+echo "--- Static files have been collected successfully. ---"
