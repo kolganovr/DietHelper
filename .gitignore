@@ -48,3 +48,5 @@ logs/
 .coverage
 .coverage.*
 htmlcov/
+
+node_modules/
