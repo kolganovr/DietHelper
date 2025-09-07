@@ -19,6 +19,11 @@
     font: Roboto, sans-serif;
 }
 
+html {
+  height: 100dvh;
+  width: 100dvw;
+}
+
 body {
     background-color: var(--background-color);
     color: white;
