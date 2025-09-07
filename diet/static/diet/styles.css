@@ -19,19 +19,28 @@
     font: Roboto, sans-serif;
 }
 
-html, body {
+html {
     height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
 }
 
 body {
     background-color: var(--background-color);
     color: white;
     font-family: sans-serif;
+    
+    margin: 0;
+    padding: 0;
+
     display: flex;
     flex-direction: column;
+
+    /* Use 100dvh if supported, otherwise fallback to 100vh */
+    height: 100vh;
+    height: 100dvh;
+    /* Fallback for browsers that do not support dvh */
+    @supports (height: 100dvh) {
+        height: 100dvh;
+    }
 }
 
 #product-input {
@@ -76,19 +85,18 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     height: 64px;
+    
+    flex-shrink: 0;
+    padding: 0 16px;
     margin-top: 20px;
     margin-bottom: 20px;
-
-    padding: 16px 16px;
-    flex-shrink: 0;
 }
 
 .main-content {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 20px 16px;
+    padding: 0 16px;
 }
 
 #product-check {
