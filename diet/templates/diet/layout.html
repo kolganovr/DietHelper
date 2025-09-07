@@ -33,5 +33,27 @@
         </div>
         {% block body %}
         {% endblock %}
+        <script>
+            const productCheckDiv = document.getElementById('product-check');
+            const productInput = document.getElementById('product-input');
+
+            if (productCheckDiv && productInput) {
+                const onInputFocus = () => {
+                    setTimeout(() => {
+                        productCheckDiv.style.position = 'absolute';
+                        productCheckDiv.style.bottom = `380px`;
+                        productInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 10);
+                };
+
+                const onInputBlur = () => {
+                    productCheckDiv.style.position = 'fixed';
+                    productCheckDiv.style.bottom = '0';
+                };
+
+                productInput.addEventListener('focus', onInputFocus);
+                productInput.addEventListener('blur', onInputBlur);
+            }
+        </script>
     </body>
 </html>

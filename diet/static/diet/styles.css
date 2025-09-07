@@ -19,28 +19,14 @@
     font: Roboto, sans-serif;
 }
 
-html {
-    height: 100%;
-}
-
 body {
     background-color: var(--background-color);
     color: white;
+    padding: 16px;
+
     font-family: sans-serif;
-    
-    margin: 0;
-    padding: 0;
 
-    display: flex;
-    flex-direction: column;
-
-    /* Use 100dvh if supported, otherwise fallback to 100vh */
-    height: 100vh;
-    height: 100dvh;
-    /* Fallback for browsers that do not support dvh */
-    @supports (height: 100dvh) {
-        height: 100dvh;
-    }
+    padding-bottom: 170px; 
 }
 
 #product-input {
@@ -85,24 +71,24 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     height: 64px;
-    
-    flex-shrink: 0;
-    padding: 0 16px;
-    margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.main-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 0 16px;
-}
-
 #product-check {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 16px;
     background-color: var(--background-color);
-    flex-shrink: 0;
+
+    transition: transform 0.2s ease-out, bottom 0.2s ease-out;
+}
+
+#product-check.focused {
+    position: absolute;
 }
 
 .result-card {

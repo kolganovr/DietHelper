@@ -9,17 +9,15 @@
 {% block title %}<h1>Главная</h1>{% endblock %}
 
 {% block body %}
-    <main class="main-content">
-        {% if verdict and explanation %}
-            <div class="result-card {% if verdict == 'Можно' %}success{% elif verdict == 'С осторожностью' %}warning{% else %}danger{% endif %}">
-                <div class="header-subheader">
-                    <h2>{{ verdict }}</h2>
-                    <p>{{ product }}</p> 
-                </div>
-                <p>{{ explanation }}</p>
+    {% if verdict and explanation %}
+        <div class="result-card {% if verdict == 'Можно' %}success{% elif verdict == 'С осторожностью' %}warning{% else %}danger{% endif %}">
+            <div class="header-subheader">
+                <h2>{{ verdict }}</h2>
+                <p>{{ product }}</p> 
             </div>
-        {% endif %}
-    </main>
+            <p>{{ explanation }}</p>
+        </div>
+    {% endif %}
 
     <div id="product-check">
         <form action="{% url 'check' %}" method="post" class="form-group">
