@@ -41,7 +41,10 @@
                 const onInputFocus = () => {
                     productCheckDiv.style.position = 'absolute';
                     productCheckDiv.style.bottom = `380px`;
-                    window.scrollTo(0, 0);
+
+                    setTimeout(() => {
+                        window.scrollTo(0, 0);
+                    }, 300);                    
                 };
 
                 const onInputBlur = () => {
