@@ -39,10 +39,9 @@
 
             if (productCheckDiv && productInput) {
                 const onInputFocus = () => {
-                    setTimeout(() => {
-                        productCheckDiv.style.position = 'absolute';
-                        productCheckDiv.style.bottom = `380px`;
-                    }, 10);
+                    productCheckDiv.style.position = 'absolute';
+                    productCheckDiv.style.bottom = `380px`;
+                    window.scrollTo(0, 0);
                 };
 
                 const onInputBlur = () => {
