@@ -14,7 +14,7 @@ def get_verdict(product, diet_description, api_key):
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
+            model="gemini-3.1-flash-lite",
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=Answer,

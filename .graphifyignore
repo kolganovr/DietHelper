@@ -1,0 +1,9 @@
+# Ignore third-party and build artifacts
+node_modules/
+**/bundle.js
+screenshots/
+graphify-out/
+venv/
+.venv/
+db.sqlite3
+*.log
