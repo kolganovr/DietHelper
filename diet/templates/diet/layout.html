@@ -33,5 +33,45 @@
         </div>
         {% block body %}
         {% endblock %}
+        <script>
+            const productCheckDiv = document.getElementById('product-check');
+            const productInput = document.getElementById('product-input');
+
+            if (productCheckDiv && productInput) {
+                const initialHeight = window.innerHeight;
+
+                const adjustPosition = () => {
+                    if (document.activeElement === productInput) {
+                        const innerHeight = window.innerHeight;
+                        const visualHeight = window.visualViewport ? window.visualViewport.height : innerHeight;
+                        
+                        // Если innerHeight не изменился (iOS), а visualHeight уменьшился
+                        const iosKeyboardHeight = innerHeight - visualHeight;
+                        
+                        if (iosKeyboardHeight > 50) {
+                            // Это iOS, клавиатура открыта
+                            productCheckDiv.style.bottom = `${iosKeyboardHeight}px`;
+                        } else {
+                            // На Android (где bottom: 0 сам поднимается) или на ПК
+                            productCheckDiv.style.bottom = '0';
+                        }
+                    } else {
+                        productCheckDiv.style.position = 'fixed';
+                        productCheckDiv.style.bottom = '0';
+                    }
+                };
+
+                productInput.addEventListener('focus', () => setTimeout(adjustPosition, 100));
+                productInput.addEventListener('blur', () => {
+                    productCheckDiv.style.position = 'fixed';
+                    productCheckDiv.style.bottom = '0';
+                });
+
+                if (window.visualViewport) {
+                    window.visualViewport.addEventListener('resize', adjustPosition);
+                }
+                window.addEventListener('resize', adjustPosition);
+            }
+        </script>
     </body>
 </html>

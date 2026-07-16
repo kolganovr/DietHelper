@@ -25,6 +25,8 @@ body {
     padding: 16px;
 
     font-family: sans-serif;
+
+    padding-bottom: 170px; 
 }
 
 #product-input {
@@ -81,6 +83,12 @@ h1 {
     right: 0;
     padding: 16px;
     background-color: var(--background-color);
+
+    transition: transform 0.2s ease-out, bottom 0.2s ease-out;
+}
+
+#product-check.focused {
+    position: absolute;
 }
 
 .result-card {

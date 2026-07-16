@@ -32,7 +32,10 @@
                 <md-outlined-text-field label="Логин" placeholder="Введите логин" required name="username">
                 </md-outlined-text-field>
 
-                <md-outlined-text-field label="Пароль" type="password" placeholder="Введите пароль" required name="password">
+                <md-outlined-text-field id="login-password" label="Пароль" type="password" placeholder="Введите пароль" required name="password">
+                    <md-icon-button slot="trailing-icon" type="button" onclick="togglePassword('login-password', this)">
+                        <md-icon>visibility</md-icon>
+                    </md-icon-button>
                 </md-outlined-text-field>
 
                 <md-filled-button type="submit" class="main-button">Войти</md-filled-button>
@@ -46,10 +49,16 @@
                 <md-outlined-text-field label="Логин" placeholder="Придумайте логин" required name="username">
                 </md-outlined-text-field>
                 
-                <md-outlined-text-field label="Пароль" type="password" placeholder="Придумайте пароль" required name="password">
+                <md-outlined-text-field id="register-password" label="Пароль" type="password" placeholder="Придумайте пароль" required name="password">
+                    <md-icon-button slot="trailing-icon" type="button" onclick="togglePassword('register-password', this)">
+                        <md-icon>visibility</md-icon>
+                    </md-icon-button>
                 </md-outlined-text-field>
                 
-                <md-outlined-text-field label="Подтвердите пароль" type="password" placeholder="Повторите пароль" required name="confirmation">
+                <md-outlined-text-field id="register-confirm" label="Подтвердите пароль" type="password" placeholder="Повторите пароль" required name="confirmation">
+                    <md-icon-button slot="trailing-icon" type="button" onclick="togglePassword('register-confirm', this)">
+                        <md-icon>visibility</md-icon>
+                    </md-icon-button>
                 </md-outlined-text-field>
 
                 <md-filled-button type="submit" class="main-button">Зарегистрироваться</md-filled-button>
@@ -68,6 +77,18 @@
     {% endif %}
 
     <script>
+        function togglePassword(fieldId, btn) {
+            const field = document.getElementById(fieldId);
+            const icon = btn.querySelector('md-icon');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                field.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const loginSwitch = document.getElementById('switch_login');
             const registerSwitch = document.getElementById('switch_register');

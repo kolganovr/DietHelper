@@ -50,3 +50,12 @@ logs/
 htmlcov/
 
 node_modules/
+
+# Graphify
+graphify-out/
+
+# Reviews
+reviews/
+
+# Changelog
+CHANGELOG.md
