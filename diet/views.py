@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.db import IntegrityError
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 from .gemini import get_verdict
 
@@ -48,7 +50,7 @@ def settings(request):
 def login_view(request):
     if request.method == "POST":
 
-        username = request.POST["username"].lower().strip()
+        username = canonical_username(request.POST["username"].lower().strip())
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
 
@@ -66,19 +68,43 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("home"))
 
+def canonical_username(username):
+    # Старые аккаунты регистрировались без lower(), ищем их без учёта регистра
+    if User.objects.filter(username=username).exists():
+        return username
+    matches = list(User.objects.filter(username__iexact=username).values_list("username", flat=True)[:2])
+    return matches[0] if len(matches) == 1 else username
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"].lower().strip()
         password = request.POST["password"]
+        confirmation = request.POST.get("confirmation", "")
+
+        error = None
+        if not username:
+            error = "Введите логин"
+        elif password != confirmation:
+            error = "Пароли не совпадают"
+        elif User.objects.filter(username__iexact=username).exists():
+            error = "Пользователь с таким именем уже существует"
+        else:
+            try:
+                validate_password(password, User(username=username))
+            except ValidationError as e:
+                error = " ".join(e.messages)
+
+        if error:
+            return render(request, "diet/profile.html", {"message": error})
+
         try:
             user = User.objects.create_user(username=username, password=password)
-            user.save()
-            login(request, user)
-            return HttpResponseRedirect(reverse("home"))
         except IntegrityError:
             return render(request, "diet/profile.html", {
                 "message": "Пользователь с таким именем уже существует"
             })
+        login(request, user)
+        return HttpResponseRedirect(reverse("home"))
     else:
         return render(request, "diet/profile.html")
 
