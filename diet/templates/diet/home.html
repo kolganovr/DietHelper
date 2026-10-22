@@ -1,30 +1,101 @@
 {% extends "diet/layout.html" %}
+{% load static %}
 
 {% block appbar-left-icon %}
-    <md-icon-button href="{% url 'settings' %}">
+    <md-icon-button href="{% url 'settings' %}" aria-label="Настройки">
         <md-icon>settings</md-icon>
     </md-icon-button>
 {% endblock %}
 
-{% block title %}<h1>Главная</h1>{% endblock %}
+{% block title %}<h1>DietHelper</h1>{% endblock %}
 
 {% block body %}
-    {% if verdict and explanation %}
-        <div class="result-card {% if verdict == 'Можно' %}success{% elif verdict == 'С осторожностью' %}warning{% else %}danger{% endif %}">
-            <div class="header-subheader">
-                <h2>{{ verdict }}</h2>
-                <p>{{ product }}</p> 
-            </div>
-            <p>{{ explanation }}</p>
+    {% if result %}
+        <section class="card error-card" role="alert">
+            <md-icon aria-hidden="true">error</md-icon>
+            <h2>{{ result.title }}</h2>
+            <p>{{ result.message }}</p>
+            {% if result.url %}
+                <md-filled-tonal-button href="{{ result.url }}">{{ result.action }}</md-filled-tonal-button>
+            {% endif %}
+        </section>
+    {% endif %}
+
+    <div id="result-skeleton" class="skeleton" hidden aria-hidden="true">
+        <div class="skeleton__line"></div>
+        <div class="skeleton__line"></div>
+        <div class="skeleton__line"></div>
+        <div class="skeleton__line"></div>
+    </div>
+
+    {% if check %}
+        <div id="current-result">
+            <article class="verdict verdict--{{ check.tone }}" aria-live="polite">
+                <header class="verdict__head">
+                    <md-icon class="verdict__icon" aria-hidden="true">{{ check.icon }}</md-icon>
+                    <div>
+                        <h2 class="verdict__title">{{ check.verdict }}</h2>
+                        <p class="verdict__product">{{ check.product }}</p>
+                    </div>
+                </header>
+                {% include "diet/verdict_details.html" %}
+            </article>
+            <p class="disclaimer">Подсказка ИИ, не заменяет консультацию врача.</p>
         </div>
     {% endif %}
 
+    {% if not ready %}
+        {% include "diet/setup_steps.html" %}
+    {% elif not check and not history %}
+        <section class="card examples">
+            <h2>Что проверить?</h2>
+            <p>Напишите блюдо или его состав. Например:</p>
+            <md-chip-set>
+                {% for example in examples %}
+                    <md-suggestion-chip label="{{ example }}" data-example="{{ example }}"></md-suggestion-chip>
+                {% endfor %}
+            </md-chip-set>
+        </section>
+    {% endif %}
+
+    {% if history %}
+        <section class="history" aria-labelledby="history-title">
+            <div class="history__head">
+                <h2 id="history-title">История</h2>
+                <form action="{% url 'clear_history' %}" method="post" id="clear-history-form">
+                    {% csrf_token %}
+                    <md-text-button type="submit">Очистить</md-text-button>
+                </form>
+            </div>
+            <ul class="history__list">
+                {% for check in history %}
+                    <li>
+                        <details class="history__item history__item--{{ check.tone }}">
+                            <summary>
+                                <md-icon aria-hidden="true">{{ check.icon }}</md-icon>
+                                <span class="history__product">{{ check.product }}</span>
+                                <span class="history__verdict">{{ check.verdict }}</span>
+                            </summary>
+                            {% include "diet/verdict_details.html" %}
+                        </details>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
     <div id="product-check">
-        <form action="{% url 'check' %}" method="post" class="form-group">
+        <form action="{% url 'check' %}" method="post" class="check-form" id="check-form">
             {% csrf_token %}
-            <!-- TODO: Добавить возможность добавить фото -->
-            <input type="text" name="product" placeholder="Введите название продукта" required id="product-input">
-            <md-filled-button type="submit" class="main-button">Проверить</md-filled-button>
+            <input type="text" name="product" id="product-input" value="{{ draft }}"
+                   aria-label="Продукт или блюдо" placeholder="Введите блюдо или состав"
+                   maxlength="{{ max_product_length }}" autocomplete="off" enterkeyhint="send" required
+                   {% if not ready %}disabled{% endif %}>
+            <md-filled-button type="submit" class="main-button" id="check-button" {% if not ready %}disabled{% endif %}>Проверить</md-filled-button>
         </form>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'diet/home.js' %}" defer></script>
 {% endblock %}

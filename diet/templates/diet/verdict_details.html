@@ -1,0 +1,15 @@
+<div class="verdict-body">
+    <p>{{ check.explanation }}</p>
+    {% if check.reasons %}
+        <h3>Почему</h3>
+        <ul>
+            {% for reason in check.reasons %}<li>{{ reason }}</li>{% endfor %}
+        </ul>
+    {% endif %}
+    {% if check.alternatives %}
+        <h3>Чем заменить</h3>
+        <ul>
+            {% for alternative in check.alternatives %}<li>{{ alternative }}</li>{% endfor %}
+        </ul>
+    {% endif %}
+</div>

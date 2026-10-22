@@ -1,7 +1,9 @@
 {% extends "diet/layout.html" %}
 
+{% block page_title %}Настройки - DietHelper{% endblock %}
+
 {% block appbar-left-icon %}
-    <md-icon-button href="{% url 'home' %}">
+    <md-icon-button href="{% url 'home' %}" aria-label="Назад">
         <md-icon>arrow_back</md-icon>
     </md-icon-button>
 {% endblock %}
@@ -9,17 +11,30 @@
 {% block title %}<h1>Настройки</h1>{% endblock %}
 
 {% block body %}
-    <form action="{% url 'settings' %}" method="post" class="form-group">
+    <form action="{% url 'settings' %}" method="post" class="form-stack">
         {% csrf_token %}
-        <md-outlined-text-field type="textarea" id='diet_description' label="Описание диеты" value="{{ user_diet_info }}" placeholder="Введите описание диеты" name="diet_description">
+        <md-outlined-text-field type="textarea" rows="5" id="diet_description" name="diet_description"
+            label="Описание диеты" value="{{ user_diet_info }}"
+            supporting-text="Например: гастрит, без острого и жареного, аллергия на орехи">
         </md-outlined-text-field>
 
-        <md-outlined-text-field label="API-ключ Gemini" value="{{ user_api_key }}" type="password" placeholder="Введите API-ключ Gemini" name="diet_api_key">
-            <md-icon-button toggle slot="trailing-icon" href="https://aistudio.google.com/app/apikey" type="button" target="_blank">
-                <md-icon>help</md-icon>
-            </md-icon-button>
-        </md-outlined-text-field>
+        <div class="field-group">
+            {% if key_hint %}
+                <p class="key-status"><md-icon aria-hidden="true">key</md-icon>Ключ сохранён, заканчивается на {{ key_hint }}</p>
+            {% endif %}
+            <md-outlined-text-field type="password" name="diet_api_key" autocomplete="off"
+                label="{% if key_hint %}Новый API-ключ Gemini{% else %}API-ключ Gemini{% endif %}"
+                {% if key_hint %}supporting-text="Оставьте пустым, чтобы не менять"{% endif %}>
+            </md-outlined-text-field>
+            <p class="hint">Ключ бесплатный. <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Получить в Google AI Studio</a></p>
+            {% if key_hint %}
+                <label class="checkbox-row">
+                    <md-checkbox name="remove_key" value="1" touch-target="wrapper"></md-checkbox>
+                    Удалить сохранённый ключ
+                </label>
+            {% endif %}
+        </div>
 
-        <md-filled-button type="submit" class="main-button">Сохранить изменения</md-filled-button>
+        <md-filled-button type="submit" class="main-button">Сохранить</md-filled-button>
     </form>
 {% endblock %}

@@ -1,77 +1,64 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
     <head>
-        <title>Diet Helper</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+        <meta charset="utf-8">
+        <title>{% block page_title %}DietHelper{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="description" content="Проверка продуктов и блюд на совместимость с вашей диетой">
+        <meta name="theme-color" content="#0c0e13">
+        <meta name="color-scheme" content="dark">
 
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-        
+        <link rel="icon" href="{% static 'diet/icons/icon.svg' %}" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="{% static 'diet/icons/apple-touch-icon.png' %}">
+        <link rel="manifest" href="{% static 'diet/manifest.webmanifest' %}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        {# Только нужные иконки. icon_names в алфавитном порядке, новую иконку добавлять сюда #}
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=account_circle,arrow_back,block,check_circle,error,key,radio_button_unchecked,settings,visibility,visibility_off,warning&display=block" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
         <script src="{% static 'diet/bundle.js' %}" defer></script>
-
         <link href="{% static 'diet/styles.css' %}" rel="stylesheet">
     </head>
     <body>
-        <div class="app-bar">
-            {% block appbar-left-icon %}
-            
-            {% endblock %}
+        <div class="page">
+            <header class="app-bar">
+                <div class="app-bar__slot">
+                    {% block appbar-left-icon %}{% endblock %}
+                </div>
 
-            {% block title %}{% endblock %}
+                {% block title %}{% endblock %}
 
-            {% if user.is_authenticated %}
-                <md-icon-button href="{% url 'profile' %}">
-                    <span class="user-initial">{{ user.username|slice:":1" }}</span>
-                </md-icon-button>
-            {% else %}
-                <md-icon-button href="{% url 'profile' %}">
-                    <md-icon>account_circle</md-icon>
-                </md-icon-button>
+                <div class="app-bar__slot">
+                    {% block appbar-right %}
+                        {% if user.is_authenticated %}
+                            <md-icon-button href="{% url 'profile' %}" aria-label="Профиль">
+                                <span class="user-initial">{{ user.username|slice:":1"|upper }}</span>
+                            </md-icon-button>
+                        {% else %}
+                            <md-icon-button href="{% url 'profile' %}" aria-label="Войти">
+                                <md-icon>account_circle</md-icon>
+                            </md-icon-button>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </header>
+
+            {% if messages %}
+                <div class="notices" role="status">
+                    {% for message in messages %}
+                        <div class="notice notice--{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
             {% endif %}
+
+            <main>
+                {% block body %}
+                {% endblock %}
+            </main>
         </div>
-        {% block body %}
-        {% endblock %}
-        <script>
-            const productCheckDiv = document.getElementById('product-check');
-            const productInput = document.getElementById('product-input');
-
-            if (productCheckDiv && productInput) {
-                const initialHeight = window.innerHeight;
-
-                const adjustPosition = () => {
-                    if (document.activeElement === productInput) {
-                        const innerHeight = window.innerHeight;
-                        const visualHeight = window.visualViewport ? window.visualViewport.height : innerHeight;
-                        
-                        // Если innerHeight не изменился (iOS), а visualHeight уменьшился
-                        const iosKeyboardHeight = innerHeight - visualHeight;
-                        
-                        if (iosKeyboardHeight > 50) {
-                            // Это iOS, клавиатура открыта
-                            productCheckDiv.style.bottom = `${iosKeyboardHeight}px`;
-                        } else {
-                            // На Android (где bottom: 0 сам поднимается) или на ПК
-                            productCheckDiv.style.bottom = '0';
-                        }
-                    } else {
-                        productCheckDiv.style.position = 'fixed';
-                        productCheckDiv.style.bottom = '0';
-                    }
-                };
-
-                productInput.addEventListener('focus', () => setTimeout(adjustPosition, 100));
-                productInput.addEventListener('blur', () => {
-                    productCheckDiv.style.position = 'fixed';
-                    productCheckDiv.style.bottom = '0';
-                });
-
-                if (window.visualViewport) {
-                    window.visualViewport.addEventListener('resize', adjustPosition);
-                }
-                window.addEventListener('resize', adjustPosition);
-            }
-        </script>
+        {% block scripts %}{% endblock %}
     </body>
 </html>

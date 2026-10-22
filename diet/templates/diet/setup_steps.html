@@ -1,0 +1,15 @@
+<section class="card setup" aria-labelledby="setup-title">
+    <h2 id="setup-title">{{ setup_title|default:"Чтобы начать" }}</h2>
+    <ol class="setup__list">
+        {% for step in steps %}
+            <li class="setup__step{% if step.done %} is-done{% endif %}">
+                <md-icon aria-hidden="true">{% if step.done %}check_circle{% else %}radio_button_unchecked{% endif %}</md-icon>
+                <span>{{ step.label }}{% if step.done %}<span class="visually-hidden"> (готово)</span>{% endif %}</span>
+                {% if not step.done %}
+                    <md-text-button href="{{ step.url }}">{{ step.action }}</md-text-button>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+    <p>Ключ Gemini бесплатный, его выдаёт Google AI Studio за пару минут.</p>
+</section>
