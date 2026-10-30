@@ -1,0 +1,916 @@
+{
+ "model": "gemini-3.1-flash-lite",
+ "prompt": "v1",
+ "set": "full",
+ "repeats": 1,
+ "all": {
+  "n": 100,
+  "accuracy": 0.77,
+  "macro_f1": 0.7611913231498919,
+  "per_class": {
+   "Можно": {
+    "precision": 0.9230769230769231,
+    "recall": 0.7058823529411765,
+    "f1": 0.8000000000000002,
+    "support": 34
+   },
+   "Нельзя": {
+    "precision": 0.7906976744186046,
+    "recall": 0.8947368421052632,
+    "f1": 0.8395061728395061,
+    "support": 38
+   },
+   "С осторожностью": {
+    "precision": 0.6129032258064516,
+    "recall": 0.6785714285714286,
+    "f1": 0.6440677966101694,
+    "support": 28
+   }
+  },
+  "confusion": {
+   "Можно": {
+    "Можно": 24,
+    "Нельзя": 2,
+    "С осторожностью": 8,
+    "невалидный": 0
+   },
+   "Нельзя": {
+    "Можно": 0,
+    "Нельзя": 34,
+    "С осторожностью": 4,
+    "невалидный": 0
+   },
+   "С осторожностью": {
+    "Можно": 2,
+    "Нельзя": 7,
+    "С осторожностью": 19,
+    "невалидный": 0
+   }
+  },
+  "dangerous_rate": 0.0,
+  "dangerous_n": 0,
+  "dangerous_ids": [],
+  "must_not_n": 38,
+  "schema_ok": 1.0,
+  "stability": null,
+  "stability_n": 0,
+  "latency_p50": 1.609500000020489,
+  "latency_p95": 30.85950000002048
+ },
+ "no_disputed": {
+  "n": 87,
+  "accuracy": 0.8390804597701149,
+  "macro_f1": 0.8231538992408557,
+  "per_class": {
+   "Можно": {
+    "precision": 0.96,
+    "recall": 0.7741935483870968,
+    "f1": 0.8571428571428571,
+    "support": 31
+   },
+   "Нельзя": {
+    "precision": 0.8918918918918919,
+    "recall": 0.9428571428571428,
+    "f1": 0.9166666666666667,
+    "support": 35
+   },
+   "С осторожностью": {
+    "precision": 0.64,
+    "recall": 0.7619047619047619,
+    "f1": 0.6956521739130435,
+    "support": 21
+   }
+  },
+  "confusion": {
+   "Можно": {
+    "Можно": 24,
+    "Нельзя": 0,
+    "С осторожностью": 7,
+    "невалидный": 0
+   },
+   "Нельзя": {
+    "Можно": 0,
+    "Нельзя": 33,
+    "С осторожностью": 2,
+    "невалидный": 0
+   },
+   "С осторожностью": {
+    "Можно": 1,
+    "Нельзя": 4,
+    "С осторожностью": 16,
+    "невалидный": 0
+   }
+  },
+  "dangerous_rate": 0.0,
+  "dangerous_n": 0,
+  "dangerous_ids": [],
+  "must_not_n": 35,
+  "schema_ok": 1.0,
+  "stability": null,
+  "stability_n": 0,
+  "latency_p50": 1.5309999999590218,
+  "latency_p95": 30.864300000004036
+ },
+ "records": [
+  {
+   "id": "gf01",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 67.92200000002049,
+   "disputed": false
+  },
+  {
+   "id": "gf02",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.3599999999860302,
+   "disputed": false
+  },
+  {
+   "id": "gf03",
+   "expected": "С осторожностью",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 30.67200000002049,
+   "disputed": true
+  },
+  {
+   "id": "gf04",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.265999999945052,
+   "disputed": false
+  },
+  {
+   "id": "gf05",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.4060000000754371,
+   "disputed": false
+  },
+  {
+   "id": "gf06",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.172000000020489,
+   "disputed": false
+  },
+  {
+   "id": "gf07",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.9679999999934807,
+   "disputed": false
+  },
+  {
+   "id": "gf08",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 10.0,
+   "disputed": false
+  },
+  {
+   "id": "gf09",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 9.515999999945052,
+   "disputed": false
+  },
+  {
+   "id": "gf10",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 5.5,
+   "disputed": false
+  },
+  {
+   "id": "lf01",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 14.577999999979511,
+   "disputed": false
+  },
+  {
+   "id": "lf02",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 7.766000000061467,
+   "disputed": false
+  },
+  {
+   "id": "lf03",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 2.218999999924563,
+   "disputed": false
+  },
+  {
+   "id": "lf04",
+   "expected": "Можно",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 16.436999999918044,
+   "disputed": true
+  },
+  {
+   "id": "lf05",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.2820000000065193,
+   "disputed": false
+  },
+  {
+   "id": "lf06",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.3439999999245629,
+   "disputed": false
+  },
+  {
+   "id": "lf07",
+   "expected": "С осторожностью",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 13.733999999938533,
+   "disputed": true
+  },
+  {
+   "id": "lf08",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.4070000000065193,
+   "disputed": false
+  },
+  {
+   "id": "kt01",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.125,
+   "disputed": false
+  },
+  {
+   "id": "kt02",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.75,
+   "disputed": false
+  },
+  {
+   "id": "kt03",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.6560000000754371,
+   "disputed": false
+  },
+  {
+   "id": "kt04",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.187000000034459,
+   "disputed": false
+  },
+  {
+   "id": "kt05",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.797000000020489,
+   "disputed": false
+  },
+  {
+   "id": "kt06",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 2.6719999999040738,
+   "disputed": false
+  },
+  {
+   "id": "kt07",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.609000000054948,
+   "disputed": false
+  },
+  {
+   "id": "kt08",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.4059999999590218,
+   "disputed": false
+  },
+  {
+   "id": "kt09",
+   "expected": "С осторожностью",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.952999999979511,
+   "disputed": false
+  },
+  {
+   "id": "kt10",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.297000000020489,
+   "disputed": false
+  },
+  {
+   "id": "vg01",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.6099999999860302,
+   "disputed": false
+  },
+  {
+   "id": "vg02",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.0320000000065193,
+   "disputed": false
+  },
+  {
+   "id": "vg03",
+   "expected": "Нельзя",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.2040000000270084,
+   "disputed": true
+  },
+  {
+   "id": "vg04",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 21.608999999938533,
+   "disputed": false
+  },
+  {
+   "id": "vg05",
+   "expected": "С осторожностью",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.3599999999860302,
+   "disputed": false
+  },
+  {
+   "id": "vg06",
+   "expected": "Нельзя",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.1559999999590218,
+   "disputed": false
+  },
+  {
+   "id": "vg07",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.0150000000139698,
+   "disputed": false
+  },
+  {
+   "id": "vg08",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.5,
+   "disputed": false
+  },
+  {
+   "id": "vg09",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.359000000054948,
+   "disputed": false
+  },
+  {
+   "id": "vg10",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.25,
+   "disputed": false
+  },
+  {
+   "id": "vt01",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.187000000034459,
+   "disputed": false
+  },
+  {
+   "id": "vt02",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.202999999979511,
+   "disputed": false
+  },
+  {
+   "id": "vt03",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.5309999999590218,
+   "disputed": true
+  },
+  {
+   "id": "vt04",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.4070000000065193,
+   "disputed": false
+  },
+  {
+   "id": "vt05",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 0.9690000000409782,
+   "disputed": false
+  },
+  {
+   "id": "vt06",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.297000000020489,
+   "disputed": false
+  },
+  {
+   "id": "vt07",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.2040000000270084,
+   "disputed": false
+  },
+  {
+   "id": "vt08",
+   "expected": "С осторожностью",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.390999999945052,
+   "disputed": true
+  },
+  {
+   "id": "ls01",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 12.484000000054948,
+   "disputed": false
+  },
+  {
+   "id": "ls02",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.047000000020489,
+   "disputed": false
+  },
+  {
+   "id": "ls03",
+   "expected": "С осторожностью",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.125,
+   "disputed": false
+  },
+  {
+   "id": "ls04",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.6099999999860302,
+   "disputed": false
+  },
+  {
+   "id": "ls05",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.8440000000409782,
+   "disputed": false
+  },
+  {
+   "id": "ls06",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.047000000020489,
+   "disputed": false
+  },
+  {
+   "id": "ls07",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.7969999999040738,
+   "disputed": false
+  },
+  {
+   "id": "ls08",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.4060000000754371,
+   "disputed": false
+  },
+  {
+   "id": "ls09",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.125,
+   "disputed": false
+  },
+  {
+   "id": "dm01",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.109000000054948,
+   "disputed": false
+  },
+  {
+   "id": "dm02",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.7190000000409782,
+   "disputed": true
+  },
+  {
+   "id": "dm03",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 0.9689999999245629,
+   "disputed": false
+  },
+  {
+   "id": "dm04",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.672000000020489,
+   "disputed": false
+  },
+  {
+   "id": "dm05",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.375,
+   "disputed": false
+  },
+  {
+   "id": "dm06",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 6.35999999998603,
+   "disputed": false
+  },
+  {
+   "id": "dm07",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.0929999999934807,
+   "disputed": true
+  },
+  {
+   "id": "dm08",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 0.9370000000344589,
+   "disputed": false
+  },
+  {
+   "id": "dm09",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.312999999965541,
+   "disputed": false
+  },
+  {
+   "id": "dm10",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.140999999945052,
+   "disputed": false
+  },
+  {
+   "id": "na01",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 56.375,
+   "disputed": false
+  },
+  {
+   "id": "na02",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.1400000000139698,
+   "disputed": false
+  },
+  {
+   "id": "na03",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.6559999999590218,
+   "disputed": false
+  },
+  {
+   "id": "na04",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.4689999999245629,
+   "disputed": false
+  },
+  {
+   "id": "na05",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.6559999999590218,
+   "disputed": true
+  },
+  {
+   "id": "na06",
+   "expected": "С осторожностью",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.5309999999590218,
+   "disputed": false
+  },
+  {
+   "id": "na07",
+   "expected": "С осторожностью",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.625,
+   "disputed": true
+  },
+  {
+   "id": "na08",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.047000000020489,
+   "disputed": false
+  },
+  {
+   "id": "fm01",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.3599999999860302,
+   "disputed": false
+  },
+  {
+   "id": "fm02",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.7820000000065193,
+   "disputed": false
+  },
+  {
+   "id": "fm03",
+   "expected": "Нельзя",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 14.329000000027008,
+   "disputed": false
+  },
+  {
+   "id": "fm04",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 34.42200000002049,
+   "disputed": false
+  },
+  {
+   "id": "fm05",
+   "expected": "С осторожностью",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 58.78099999995902,
+   "disputed": false
+  },
+  {
+   "id": "fm06",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.297000000020489,
+   "disputed": false
+  },
+  {
+   "id": "fm07",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 2.60999999998603,
+   "disputed": false
+  },
+  {
+   "id": "fm08",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 48.125,
+   "disputed": false
+  },
+  {
+   "id": "fm09",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.2190000000409782,
+   "disputed": false
+  },
+  {
+   "id": "fm10",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 22.56299999996554,
+   "disputed": false
+  },
+  {
+   "id": "hl01",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.875,
+   "disputed": false
+  },
+  {
+   "id": "hl02",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 5.125,
+   "disputed": false
+  },
+  {
+   "id": "hl03",
+   "expected": "Нельзя",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 8.827999999979511,
+   "disputed": true
+  },
+  {
+   "id": "hl04",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 2.344000000040978,
+   "disputed": false
+  },
+  {
+   "id": "hl05",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.9839999999385327,
+   "disputed": false
+  },
+  {
+   "id": "hl06",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 2.327999999979511,
+   "disputed": false
+  },
+  {
+   "id": "hl07",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 2.0929999999934807,
+   "disputed": false
+  },
+  {
+   "id": "gt01",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 10.76500000001397,
+   "disputed": false
+  },
+  {
+   "id": "gt02",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 1.172000000020489,
+   "disputed": false
+  },
+  {
+   "id": "gt03",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.8900000000139698,
+   "disputed": false
+  },
+  {
+   "id": "gt04",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 3.35999999998603,
+   "disputed": false
+  },
+  {
+   "id": "gt05",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 2.937999999965541,
+   "disputed": false
+  },
+  {
+   "id": "gt06",
+   "expected": "Можно",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 19.67200000002049,
+   "disputed": true
+  },
+  {
+   "id": "gt07",
+   "expected": "Можно",
+   "predicted": "Можно",
+   "repeat": 0,
+   "latency": 1.0309999999590218,
+   "disputed": false
+  },
+  {
+   "id": "gt08",
+   "expected": "Можно",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 6.094000000040978,
+   "disputed": true
+  },
+  {
+   "id": "gt09",
+   "expected": "Нельзя",
+   "predicted": "Нельзя",
+   "repeat": 0,
+   "latency": 12.827999999979511,
+   "disputed": false
+  },
+  {
+   "id": "gt10",
+   "expected": "С осторожностью",
+   "predicted": "С осторожностью",
+   "repeat": 0,
+   "latency": 1.5310000000754371,
+   "disputed": false
+  }
+ ]
+}

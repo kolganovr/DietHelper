@@ -29,6 +29,7 @@ EVAL_DIR = ROOT / "eval"
 CACHE_DIR = EVAL_DIR / ".cache"
 RESULTS_DIR = EVAL_DIR / "results"
 REQUEST_LOG = CACHE_DIR / "requests.log"
+LOCK = CACHE_DIR / "run.lock"
 
 QUOTA_WAIT = 60          # пауза после 429, секунд
 MAX_QUOTA_IN_ROW = 3     # после стольких 429 подряд прогон модели прекращается
@@ -108,7 +109,7 @@ def ask(case, model, prompt_text, key, limiter):
             answer = get_verdict(case["product"], case["diet"], key, model=model, system_instruction=prompt_text)
         except GeminiError as e:
             latency = time.monotonic() - started
-            log_request(model, case["id"], e.kind)
+            log_request(model, case["id"], f"{e.kind}: {e.__cause__}"[:300])
             if e.kind == "quota":
                 quota_in_row += 1
                 if quota_in_row >= MAX_QUOTA_IN_ROW:
@@ -224,7 +225,20 @@ def main(argv=None):
         return 0
 
     key = api_key(args.env_file) if need else None
-    results, made = run(models, prompts, cases, args.repeats, key, args.interval, args.budget)
+    if need:
+        # два запуска одновременно делят минутную квоту и дублируют запросы
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        try:
+            fd = os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            sys.exit(f"Уже идёт другой прогон ({LOCK}). Если он упал, удалите файл блокировки.")
+        os.write(fd, str(os.getpid()).encode())
+        os.close(fd)
+    try:
+        results, made = run(models, prompts, cases, args.repeats, key, args.interval, args.budget)
+    finally:
+        if need:
+            LOCK.unlink(missing_ok=True)
     print(f"\nЗапросов к API за запуск: {made}")
 
     RESULTS_DIR.mkdir(exist_ok=True)
