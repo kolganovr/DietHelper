@@ -51,4 +51,4 @@ jobs:
         run: python manage.py collectstatic --noinput
 
       - name: Run tests
-        run: python manage.py test diet -v 2
+        run: python manage.py test diet eval -v 2

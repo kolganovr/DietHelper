@@ -58,4 +58,6 @@ graphify-out/
 reviews/
 
 # Changelog
-CHANGELOG.md
+CHANGELOG.md
+# Eval: кэш ответов Gemini (не коммитить)
+eval/.cache/

@@ -72,17 +72,18 @@ def _classify(e):
     )
 
 
-def get_verdict(product, diet_description, api_key):
-    """Вернуть dict: verdict, explanation, reasons, alternatives. При сбое бросает GeminiError."""
+def get_verdict(product, diet_description, api_key, model=MODEL, system_instruction=SYSTEM_INSTRUCTION):
+    """Вернуть dict: verdict, explanation, reasons, alternatives. При сбое бросает GeminiError.
+    model и system_instruction меняет только eval (eval/run_eval.py), прод берёт значения по умолчанию."""
     client = genai.Client(api_key=api_key)
 
     try:
         response = client.models.generate_content(
-            model=MODEL,
+            model=model,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=Answer,
-                system_instruction=SYSTEM_INSTRUCTION,
+                system_instruction=system_instruction,
             ),
             contents=f"Блюдо: '{product}'\nДиета: '{diet_description}'",
         )
