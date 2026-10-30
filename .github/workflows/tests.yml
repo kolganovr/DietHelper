@@ -28,10 +28,12 @@ jobs:
           node-version: lts/*
           cache: npm
 
-      - uses: actions/setup-python@v5
+      # setup-python has no 3.9 build for the current ubuntu-latest, uv does
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
+          enable-cache: true
+          cache-dependency-glob: requirements.txt
 
       - name: Build JS bundle
         run: |
@@ -39,7 +41,10 @@ jobs:
           npm run build
 
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: |
+          uv pip install -r requirements.txt
+          python --version
+          python -m django --version
 
       - name: Collect static files
         run: python manage.py collectstatic --noinput
