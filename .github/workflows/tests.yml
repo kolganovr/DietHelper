@@ -1,0 +1,48 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.9 = current Vercel runtime (Django 4.2), 3.12 = target runtime (T-005)
+        python-version: ["3.9", "3.12"]
+    env:
+      # Dummy values: tests never call Gemini (get_verdict is mocked)
+      SECRET_KEY: ci-dummy-secret-key
+      FERNET_KEY: Zm9vYmFyYmF6cXV4cXV1eGNvcmdlZ3JhdWx0Z2FycGw=
+      DEBUG: "False"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Build JS bundle
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Collect static files
+        run: python manage.py collectstatic --noinput
+
+      - name: Run tests
+        run: python manage.py test diet -v 2
